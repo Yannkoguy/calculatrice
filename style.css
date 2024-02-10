@@ -1,5 +1,5 @@
 body {
-  background-color: white;
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,28 +10,32 @@ body {
   display: flex;
   height: 450px;
   width: 300px;
-  background-color: black;
-  border-radius: 10px;
-  border: 4px solid blue;
+  background-color: crimson;
+  border-radius: 15px;
+  border: 4px solid white;
   flex-direction: column;
   padding: 5px;
 }
 
 #screen {
   display: flex;
-  border: 2px solid blue;
+  border: 4px solid;
   margin: 10px;
   margin-top: 20px;
-  height: 85px;
+  height: 100px;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 30px;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 #touch {
   display: flex;
   height: 300px;
-  border: 2px solid blue;
+
   margin: 10px;
-  margin-top: 15px;
+  margin-top: 30px;
   border-radius: 10px;
   flex-direction: column;
 }
@@ -39,4 +43,22 @@ body {
   display: flex;
   flex: 1;
   display: row;
+}
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  flex: 1;
+  border-radius: 100px;
+  background-color: white;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: 0.5s;
+  text-transform: capitalize;
+}
+button:focus {
+  background-color: crimson;
+  color: white;
 }
