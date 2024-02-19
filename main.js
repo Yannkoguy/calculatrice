@@ -1,38 +1,75 @@
-let firstN;
-let secodN;
-let operator;
-let resultat;
+let operator = "";
+let previousValue = "";
+let currentValue = "";
 
-const screen = document.getElementById("screen");
-const numbers = document.getElementsByClassName("number");
-const operators = document.getElementsByClassName("operator");
+let numbers = document.querySelectorAll(`.number`);
+let operators = document.querySelectorAll(`.operator`);
 
-function addition(a, b) {
-  return a + b;
-}
-const Multipy = function (a, b) {
-  return (resultat = a * b);
-};
-const subtract = function (a, b) {
-  return (resultat = a - b);
-};
-const divide = function (a, b) {
-  return (resultat = a / b);
-};
+let equal = document.getElementById("equal");
+let clear = document.getElementById("clear");
 
-function operate() {
-  if (operator == "+") {
-    addition(firstN, secodN);
-  } else if (operator == "-") {
-    subtract(firstN, secodN);
-  } else if (operator == "*") {
-    Multipy(firstN, secodN);
-  } else {
-    divide(firstN, secodN);
+let previousScreen = document.querySelector(".previous");
+let currentScreen = document.querySelector(".current");
+
+//fonction qui renvoie l'input(chiffre nmérique de l'utilsateur
+numbers.forEach((numbers) =>
+  numbers.addEventListener("click", (e) => {
+    handleNumber(e.target.textContent);
+    currentScreen.textContent = currentValue;
+  })
+);
+
+//fonction pour selectionner les operateur et la seconde valeur
+operators.forEach((operators) =>
+  operators.addEventListener("click", function value2(e) {
+    handleOperator(e.target.textContent);
+    previousScreen.textContent = previousValue + " " + operator;
+    currentScreen.textContent = currentValue;
+  })
+);
+//cette fonction permet de nettoyer l'écran
+clear.addEventListener("click", function () {
+  previousValue = "";
+  currentValue = "";
+  operator = "";
+  previousScreen.textContent = "";
+  currentScreen.textContent = "";
+});
+//fonction pour entrer la valeur du  nombre courents
+function handleNumber(num) {
+  if (currentValue.length <= 8) {
+    currentValue += num;
   }
 }
+//cette fonction permet d'afficher l'operateur , puis de mettre la valeur de currentvalue dans previousvalue;
+function handleOperator(op) {
+  operator = op;
+  previousValue = currentValue;
+  currentValue = "";
+}
+equal.addEventListener("click", function () {
+  calculate();
+  previousScreen.textContent = "";
+  currentScreen.textContent = previousValue;
+});
 
-console.log(addition(5, 6));
-console.log(Multipy(10, 6));
-console.log(subtract(10, 6));
-console.log(divide(10, 2));
+function calculate() {
+  //transformer des string en number
+  previousValue = Number(previousValue);
+  currentValue = Number(currentValue);
+  if (operator === "+") {
+    previousValue += currentValue;
+  } else if (operator === "-") {
+    previousValue -= currentValue;
+  } else if (operator === "*") {
+    previousValue *= currentValue;
+  } else previousValue /= currentValue;
+
+  previousValue = roundNumber(previousValue);
+  previousValue = previousValue.toString();
+  currentValue = previousValue.toString();
+}
+
+function roundNumber(num) {
+  return Math.round(num * 1000) / 1000;
+}
